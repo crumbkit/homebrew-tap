@@ -1,0 +1,33 @@
+#!/bin/bash
+# Writes Formula/<bin>.rb for every non-archived repository in the crumbkit
+# organisation whose latest release attaches binary archives and SHA256SUMS.
+# A repository without such a release is skipped, so a new app is picked up
+# the first time it publishes one, and a formula whose app stopped publishing
+# is left as it is.
+#
+# Usage: scripts/generate            needs `gh` signed in, or GH_TOKEN set
+set -euo pipefail
+
+ORG=${CRUMBKIT_ORG:-crumbkit}
+cd "$(dirname "$0")/.."
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+
+for repo in $(gh repo list "$ORG" --no-archived --visibility public --limit 200 --json name -q '.[].name' | sort); do
+  tag=$(gh release view -R "$ORG/$repo" --json tagName -q .tagName 2>/dev/null || true)
+  [ -n "$tag" ] || continue
+  version=${tag#v}
+  gh release view "$tag" -R "$ORG/$repo" --json assets -q '.assets[].name' | grep -qx SHA256SUMS || continue
+  rm -f "$tmp/SHA256SUMS"
+  gh release download "$tag" -R "$ORG/$repo" -p SHA256SUMS -D "$tmp"
+  # Each binary in the release is named by its archives: <bin>-<version>-<target>.tar.gz.
+  bins=$(awk '{ print $2 }' "$tmp/SHA256SUMS" | sed -nE "s/^(.+)-$version-[a-z0-9_]+-.+\\.tar\\.gz\$/\\1/p" | sort -u)
+  [ -n "$bins" ] || continue
+  desc=$(gh repo view "$ORG/$repo" --json description -q .description)
+  for bin in $bins; do
+    if scripts/formula "$bin" "$ORG/$repo" "$version" "$desc" "$tmp/SHA256SUMS" > "$tmp/$bin.rb"; then
+      mv "$tmp/$bin.rb" "Formula/$bin.rb"
+      echo "$bin $version from $ORG/$repo"
+    fi
+  done
+done
