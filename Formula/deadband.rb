@@ -3,24 +3,24 @@
 class Deadband < Formula
   desc "Admits heavy jobs by live CPU and memory headroom"
   homepage "https://github.com/crumbkit/deadband"
-  version "0.3.0"
+  version "0.4.0"
   license any_of: ["MIT", "Apache-2.0"]
 
   on_macos do
     on_arm do
-      url "https://github.com/crumbkit/deadband/releases/download/v0.3.0/deadband-0.3.0-aarch64-apple-darwin.tar.gz"
-      sha256 "ef5b0db9b39f4ebf571356252a5d4acf46ddb6300a92bda9f1e497e22bd0639f"
+      url "https://github.com/crumbkit/deadband/releases/download/v0.4.0/deadband-0.4.0-aarch64-apple-darwin.tar.gz"
+      sha256 "a5a3819d4d7dd00bc3960e81904b206c6f740dcfd2b5cc78d366cb2d7a306b4f"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/crumbkit/deadband/releases/download/v0.3.0/deadband-0.3.0-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "f76549e098537dd3eb6b905d0cb5094f659dbdcb029560469da8b40493a6c8c5"
+      url "https://github.com/crumbkit/deadband/releases/download/v0.4.0/deadband-0.4.0-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "28e6850eb50530a290d68537f8b013e27ab467287824b9b5addb85e515b2d2d5"
     end
     on_intel do
-      url "https://github.com/crumbkit/deadband/releases/download/v0.3.0/deadband-0.3.0-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "51b53c302b2cc8d4dff16c319ee53841edfff662813c59e9b101fce2b0bc490e"
+      url "https://github.com/crumbkit/deadband/releases/download/v0.4.0/deadband-0.4.0-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "d446db7bf2bda13ddd1b6a3b7f1bd2bf0ba31a73da0b92d35e4abec2ab6b96aa"
     end
   end
 
