@@ -9,13 +9,14 @@ brew tap crumbkit/tap
 ```
 
 ```bash
-brew install deadband mxv starmap flightdeck
+brew install deadband mxv starmap flightdeck jumpgate
 ```
 
 | Formula | Repository |
 | --- | --- |
 | `deadband` | [crumbkit/deadband](https://github.com/crumbkit/deadband) |
 | `flightdeck` | [crumbkit/flightdeck](https://github.com/crumbkit/flightdeck) |
+| `jumpgate` | [crumbkit/jumpgate](https://github.com/crumbkit/jumpgate) |
 | `mxv` | [crumbkit/multiverse](https://github.com/crumbkit/multiverse) |
 | `starmap` | [crumbkit/starmap](https://github.com/crumbkit/starmap) |
 
