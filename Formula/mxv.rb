@@ -3,24 +3,24 @@
 class Mxv < Formula
   desc "Multi-repository task workspaces"
   homepage "https://github.com/crumbkit/multiverse"
-  version "0.4.0"
+  version "0.5.1"
   license any_of: ["MIT", "Apache-2.0"]
 
   on_macos do
     on_arm do
-      url "https://github.com/crumbkit/multiverse/releases/download/v0.4.0/mxv-0.4.0-aarch64-apple-darwin.tar.gz"
-      sha256 "0f7f6920796cbc6b91199f51af21e2026aeef96c67b6b496f01cadbc845767fc"
+      url "https://github.com/crumbkit/multiverse/releases/download/v0.5.1/mxv-0.5.1-aarch64-apple-darwin.tar.gz"
+      sha256 "710dbad4bb2b03b38c3f1f684aed3ecd161306a012a36e20c248ef254747af61"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/crumbkit/multiverse/releases/download/v0.4.0/mxv-0.4.0-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "1a5644c7c5444c6231e6084281bc7924171ce22e177a9fbc5ced29e5a64e097f"
+      url "https://github.com/crumbkit/multiverse/releases/download/v0.5.1/mxv-0.5.1-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "b83c059440eadcdf5f291b28fe8202b2ce9544da5ffd74e0f32827d00830a1d5"
     end
     on_intel do
-      url "https://github.com/crumbkit/multiverse/releases/download/v0.4.0/mxv-0.4.0-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "fcc60d6b828ca866f3fbcf3d079ccbe3df00a6a974848cc7809ac6e03d9826ff"
+      url "https://github.com/crumbkit/multiverse/releases/download/v0.5.1/mxv-0.5.1-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "1b93b5667b7da227fcb036bd0a679d4c83c0bfcb30da9d7a62aca92a3a347268"
     end
   end
 
