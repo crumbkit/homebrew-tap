@@ -1,6 +1,7 @@
-# Regenerates Formula/ from the latest release of every crumbkit app and
-# commits the change to main. It runs every hour, on a manual run, and on a
-# push to main, where it also runs the tests and `brew style`.
+# Regenerates Formula/ and Casks/ from the latest release of every crumbkit
+# app and commits the change to main. It runs every hour, on a manual run, on
+# a push to main and on a pull request, and each run also runs the tests and
+# `brew style`. Only a run on main commits.
 name: Update formulas
 
 on:
@@ -33,21 +34,21 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: scripts/generate
-      - name: Check formula style
+      - name: Check formula and cask style
         run: |
           eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-          brew style Formula/
-      - name: Commit changed formulas
+          brew style Formula/ Casks/
+      - name: Commit changed formulas and casks
         if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if git diff --quiet -- Formula/ && [ -z "$(git ls-files --others --exclude-standard Formula/)" ]; then
-            echo "formulas are current"
+          if git diff --quiet -- Formula/ Casks/ && [ -z "$(git ls-files --others --exclude-standard Formula/ Casks/)" ]; then
+            echo "formulas and casks are current"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Formula/
+          git add -A -- Formula/ Casks/
           git commit -m "Update formulas to the latest releases"
           git push "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:main
