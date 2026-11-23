@@ -1,9 +1,11 @@
 #!/bin/bash
 # Writes Formula/<bin>.rb for every non-archived repository in the crumbkit
-# organisation whose latest release attaches binary archives and SHA256SUMS.
-# A repository without such a release is skipped, so a new app is picked up
-# the first time it publishes one, and a formula whose app stopped publishing
-# is left as it is.
+# organisation whose latest release attaches binary archives and SHA256SUMS,
+# and Casks/<repo>.rb for every one whose latest release lists a notarised
+# dmg in SHA256SUMS. A repository without such a release is skipped, so a new
+# app is picked up the first time it publishes one, and a formula or cask
+# whose app stopped publishing is left as it is. A formula or cask that its
+# script refuses is not written, and the others still are.
 #
 # Usage: scripts/generate            needs `gh` signed in, or GH_TOKEN set
 set -euo pipefail
@@ -12,6 +14,7 @@ ORG=${CRUMBKIT_ORG:-crumbkit}
 cd "$(dirname "$0")/.."
 tmp=$(mktemp -d)
 trap 'rm -rf "$tmp"' EXIT
+mkdir -p Formula Casks
 
 for repo in $(gh repo list "$ORG" --no-archived --visibility public --limit 200 --json name -q '.[].name' | sort); do
   tag=$(gh release view -R "$ORG/$repo" --json tagName -q .tagName 2>/dev/null || true)
@@ -22,7 +25,8 @@ for repo in $(gh repo list "$ORG" --no-archived --visibility public --limit 200 
   gh release download "$tag" -R "$ORG/$repo" -p SHA256SUMS -D "$tmp"
   # Each binary in the release is named by its archives: <bin>-<version>-<target>.tar.gz.
   bins=$(awk '{ print $2 }' "$tmp/SHA256SUMS" | sed -nE "s/^(.+)-$version-[a-z0-9_]+-.+\\.tar\\.gz\$/\\1/p" | sort -u)
-  [ -n "$bins" ] || continue
+  has_dmg=$(awk '$2 ~ /\.dmg$/ { print "yes"; exit }' "$tmp/SHA256SUMS")
+  [ -n "$bins$has_dmg" ] || continue
   desc=$(gh repo view "$ORG/$repo" --json description -q .description)
   for bin in $bins; do
     if scripts/formula "$bin" "$ORG/$repo" "$version" "$desc" "$tmp/SHA256SUMS" > "$tmp/$bin.rb"; then
@@ -30,4 +34,8 @@ for repo in $(gh repo list "$ORG" --no-archived --visibility public --limit 200 
       echo "$bin $version from $ORG/$repo"
     fi
   done
+  if [ -n "$has_dmg" ] && scripts/cask "$repo" "$ORG/$repo" "$version" "$desc" "$tmp/SHA256SUMS" > "$tmp/$repo.cask.rb"; then
+    mv "$tmp/$repo.cask.rb" "Casks/$repo.rb"
+    echo "cask $repo $version from $ORG/$repo"
+  fi
 done
