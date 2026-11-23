@@ -51,6 +51,21 @@ expect tests/fixtures/board-app.rb \
   scripts/cask board-app crumbkit/board-app 0.1.1 "Board.app: the macOS app that ships Board" \
   tests/fixtures/board-app.SHA256SUMS
 
+# bin/dmg names an image Board-<version>-<release id>.dmg, where the release
+# id is board-<12 hex>.app-<12 hex>. The board-app release renames it to
+# Board-<version>.dmg, which the fixture above uses; both shapes give a cask.
+check_url() {
+  local got
+  got=$(scripts/cask board-app crumbkit/board-app 0.1.1 "x" "$1" | sed -n 's/^  url "\(.*\)"$/\1/p') || true
+  if [ "$got" != "$2" ]; then
+    echo "FAIL: $1 gave cask url \"$got\", expected \"$2\"" >&2
+    fail=1
+  fi
+}
+check_url tests/fixtures/board-app-id.SHA256SUMS \
+  'https://github.com/crumbkit/board-app/releases/download/v#{version}/Board-#{version}-board-0123456789ab.app-0123456789ab.dmg'
+
+# The same name with -unnotarised before .dmg is refused.
 refuse "an -unnotarised dmg produced a cask" \
   scripts/cask board-app crumbkit/board-app 0.1.1 "x" tests/fixtures/unnotarised.SHA256SUMS
 refuse "a release with no dmg produced a cask" \

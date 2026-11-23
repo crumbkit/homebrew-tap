@@ -4,7 +4,9 @@
 # Usage: scripts/cask <token> <owner/repo> <version> <description> <SHA256SUMS file>
 #
 # The release must list `<Name>-<version>.dmg` or `<Name>-<version>-<id>.dmg`
-# in SHA256SUMS. The dmg holds <Name>.app. A dmg whose name ends in
+# in SHA256SUMS, where <id> is any run of letters, digits, dots, underscores
+# and hyphens, such as bin/dmg's `board-<12 hex>.app-<12 hex>`. The dmg holds
+# <Name>.app. A dmg whose name ends in
 # `-unnotarised.dmg` is not notarised, so Gatekeeper would block it, and it is
 # never used. A release with no other dmg is refused. crumbkit apps are built
 # for Apple silicon and macOS 14 (Sonoma) or later, so every cask depends on
@@ -19,7 +21,7 @@ here=$(cd "$(dirname "$0")" && pwd)
 
 # The first notarised dmg of this version, as "<sha> <Name> <asset>".
 dmg=$(awk -v version="$version" '
-  BEGIN { v = version; gsub(/\./, "\\.", v); re = "^[A-Za-z0-9_.]+-" v "(-[A-Za-z0-9]+)?\\.dmg$" }
+  BEGIN { v = version; gsub(/\./, "[.]", v); re = "^[A-Za-z0-9_.]+-" v "(-[A-Za-z0-9_.-]+)?[.]dmg$" }
   $2 ~ re && $2 !~ /-unnotarised\.dmg$/ {
     name = $2; sub("-" v ".*$", "", name)
     print $1, name, $2; exit
