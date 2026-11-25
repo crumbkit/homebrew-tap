@@ -3,28 +3,28 @@
 class Board < Formula
   desc "Fast, validated view of a git tree"
   homepage "https://github.com/crumbkit/board"
-  version "0.1.1"
+  version "0.1.2"
   license any_of: ["MIT", "Apache-2.0"]
 
   on_macos do
     on_arm do
-      url "https://github.com/crumbkit/board/releases/download/v0.1.1/board-0.1.1-aarch64-apple-darwin.tar.gz"
-      sha256 "fd64bd3e2dc8dd65b5dbd3bc40e80648596f282dd69d1ab7da618e2827fa2ffc"
+      url "https://github.com/crumbkit/board/releases/download/v0.1.2/board-0.1.2-aarch64-apple-darwin.tar.gz"
+      sha256 "3a4cf5721c3c3aa171a63f156124483569e06e611adcb79ec5b86477f1550a73"
     end
     on_intel do
-      url "https://github.com/crumbkit/board/releases/download/v0.1.1/board-0.1.1-x86_64-apple-darwin.tar.gz"
-      sha256 "1b826c00bb8bd93bdea04b74195180c50ee0c662101879600b0be4fefc53d2e7"
+      url "https://github.com/crumbkit/board/releases/download/v0.1.2/board-0.1.2-x86_64-apple-darwin.tar.gz"
+      sha256 "80cc6798af16261ee5a5a4afbe9bd5173770eb63f649d00ab6ed5f2048a6a3f6"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/crumbkit/board/releases/download/v0.1.1/board-0.1.1-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "41290606f009131ef1d803034b4bbbac7280760430b5fcaa6f1e2a2e9f22816b"
+      url "https://github.com/crumbkit/board/releases/download/v0.1.2/board-0.1.2-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "6a507be1a2a9b39bfe56874d7eeadb73ffcddfe9971086e305f4db8ae92d8bf6"
     end
     on_intel do
-      url "https://github.com/crumbkit/board/releases/download/v0.1.1/board-0.1.1-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "9b589aaa2565c202b766769c8222372ba161992120d3519c0b253a9b95e200fc"
+      url "https://github.com/crumbkit/board/releases/download/v0.1.2/board-0.1.2-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "6e86c299f774be3f0598373d12f7f2630ce526f6514740c18a789c3af418245b"
     end
   end
 
