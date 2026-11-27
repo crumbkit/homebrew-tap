@@ -3,24 +3,24 @@
 class Flightdeck < Formula
   desc "Local web page for any command-line tool built on crumbkit"
   homepage "https://github.com/crumbkit/flightdeck"
-  version "0.3.0"
+  version "0.4.0"
   license any_of: ["MIT", "Apache-2.0"]
 
   on_macos do
     on_arm do
-      url "https://github.com/crumbkit/flightdeck/releases/download/v0.3.0/flightdeck-0.3.0-aarch64-apple-darwin.tar.gz"
-      sha256 "2e8e1fe7c6fa36bd772fef0509dee6edd019a59060c772783bbfe8c1c188d4c2"
+      url "https://github.com/crumbkit/flightdeck/releases/download/v0.4.0/flightdeck-0.4.0-aarch64-apple-darwin.tar.gz"
+      sha256 "d2695c5bd9dc97f15d6b1148939748d159b8022159f59d54342fd15efea78376"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/crumbkit/flightdeck/releases/download/v0.3.0/flightdeck-0.3.0-aarch64-unknown-linux-gnu.tar.gz"
-      sha256 "5ba4dc52027ce985c7e4b676e83da0e5c936d4ceedf52095208a1fb455046d29"
+      url "https://github.com/crumbkit/flightdeck/releases/download/v0.4.0/flightdeck-0.4.0-aarch64-unknown-linux-gnu.tar.gz"
+      sha256 "2517802a42df06eff21ab9c2c32b3acf5f573091c2c90b864fad2fe729b5b623"
     end
     on_intel do
-      url "https://github.com/crumbkit/flightdeck/releases/download/v0.3.0/flightdeck-0.3.0-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "ae0b532c3bb88561af1e4aeb41cd1e97d4a084b8601e84770b8138dc64a7ea42"
+      url "https://github.com/crumbkit/flightdeck/releases/download/v0.4.0/flightdeck-0.4.0-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "6c56427c73c6c56abe8bf7ed689e7bec1522d3ff5141a4a54c385a818d996b9c"
     end
   end
 
