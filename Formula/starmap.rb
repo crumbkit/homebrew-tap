@@ -3,24 +3,24 @@
 class Starmap < Formula
   desc "Declare, check and resolve the environment variables a Rust application reads"
   homepage "https://github.com/crumbkit/starmap"
-  version "0.4.2"
+  version "0.4.3"
   license any_of: ["MIT", "Apache-2.0"]
 
   on_macos do
     on_arm do
-      url "https://github.com/crumbkit/starmap/releases/download/v0.4.2/starmap-0.4.2-aarch64-apple-darwin.tar.gz"
-      sha256 "92eb6ccc4d4aa8a9a9627661a7798815ad04f27cee334dd4979f0ee9b2942d96"
+      url "https://github.com/crumbkit/starmap/releases/download/v0.4.3/starmap-0.4.3-aarch64-apple-darwin.tar.gz"
+      sha256 "2ccfcb655c8af51c188fad90461ca637cdf43fb43a0afc49eedd5e8a5144824e"
     end
   end
 
   on_linux do
     on_arm do
-      url "https://github.com/crumbkit/starmap/releases/download/v0.4.2/starmap-0.4.2-aarch64-unknown-linux-musl.tar.gz"
-      sha256 "bfda84a215af08a4288939738b83ba583886d54ddf85a5b8717a728e96aa363f"
+      url "https://github.com/crumbkit/starmap/releases/download/v0.4.3/starmap-0.4.3-aarch64-unknown-linux-musl.tar.gz"
+      sha256 "b0727993ea84d1dd3f3ce1aaa06d9f402bd6272dc1ad4b75dbaffad63b584dbb"
     end
     on_intel do
-      url "https://github.com/crumbkit/starmap/releases/download/v0.4.2/starmap-0.4.2-x86_64-unknown-linux-musl.tar.gz"
-      sha256 "ac31b39af8b294c7c87308b52e4ab7be27b14fc24b982a526682f26bb65b0ba9"
+      url "https://github.com/crumbkit/starmap/releases/download/v0.4.3/starmap-0.4.3-x86_64-unknown-linux-musl.tar.gz"
+      sha256 "51d2cb320a2cd36b5fd9e816da89f1352a8a7f310741250d700a97a963c9be05"
     end
   end
 
